@@ -1,5 +1,5 @@
 @extends('admin.master')
-@section('header','Add SubCategory')
+@section('header','Edit SubCategory')
 @section('title','SubCategory')
 
 @section('main-content')
@@ -8,11 +8,11 @@
             <!-- Small boxes (Stat box) -->
             <div class="card">
                 <div class="card-header">
-                    <h3>Create SubCategory</h3>
+                    <h3>Edit SubCategory</h3>
                 </div>
                 @include('admin.includes.message')
                 <div class="card-body">
-                    <form method="post" action="{{ route('admin.store.subcategory') }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('admin.updateSubCategory',$subcat->id) }}" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
 
@@ -20,7 +20,7 @@
                                 <label for="category_id">Category Name</label>
 
                                 <select id="" class="custom-select" name="category_name">
-                                    <option value="">--select category name--</option>
+                                    <option value="{{$subcat->category_id}}">{{$subcat->name}}</option>
                                     @foreach ($category as $categories)
                                     <option value="{{$categories->id}}">{{$categories->name}}</option>
                                     @endforeach
@@ -31,7 +31,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="subcategory_name">Subcategory Name</label>
-                                <input class="form-control" type="text" name="subcategory_name">
+                                <input class="form-control" type="text" name="subcategory_name" value="{{$subcat->sub_name}}">
                                 @if ($errors->has('subcategory_name'))
                                     <p class="text-danger">{{ $errors->first('subcategory_name') }}</p>
                                 @endif
@@ -41,16 +41,16 @@
 
                                 <select id="" class="custom-select" name="status">
                                     <option value="">--select--</option>
-                                    <option value="1">Open</option>
-                                    <option value="0">Close</option>
+                                     <option {{$subcat->status ==1 ? 'selected' : ''}} value="1">Open</option>
+                                   <option {{$subcat->status ==0 ? 'selected' : ''}} value="0">Close</option>
                                 </select>
                                 @if ($errors->has('status'))
                                     <p class="text-danger">{{ $errors->first('status') }}</p>
                                 @endif
                             </div>
-							<div class="form-group col-md-6">
+							               <div class="form-group col-md-6">
                                 <label for="description">Description</label>
-                                <textarea class="form-control" type="text" name="description"></textarea>
+                                <textarea class="form-control" type="text" name="description">{{$subcat->description}}</textarea>
                                 @if ($errors->has('description'))
                                     <p class="text-danger">{{ $errors->first('description') }}</p>
                                 @endif
@@ -65,9 +65,8 @@
                             </div>
 
                             <div class="form-group col-md-1">
-                                <!-- <label for="image">Image Preview</label> -->
-                                <div id="image-preview"></div>
-                            </div>
+                              <img style="width: 80px; height: 65px; margin-top: 15px;" src="{{asset('uploads/subcategory/'.$subcat->image)}}">
+                           </div>
                         </div>
                         <button class="btn btn-success" type="submit">Submit</button>
                     </form>

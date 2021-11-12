@@ -16,7 +16,7 @@ class CategoryController extends Controller
     function store(Request $request){
 
     	   $this->validate($request,[
-            'category_name' => 'required',
+            'category_name' => 'required|unique:categories,name',
             'status' => 'required',
             'image' => 'required',
             'description' => 'required',
@@ -67,7 +67,7 @@ class CategoryController extends Controller
     function update(Request $request ,$id){
     	// dd($request->all());
     	   $this->validate($request,[
-            'category_name' => 'required',
+            'category_name' => 'required|unique:categories,name',
             'status' => 'required',
             'description' => 'required',
         ]);

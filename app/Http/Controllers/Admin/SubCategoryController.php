@@ -21,7 +21,7 @@ class SubCategoryController extends Controller
 
     	$this->validate($request,[
             'category_name' => 'required',
-            'subcategory_name' => 'required',
+            'subcategory_name' => 'required|unique:subcategories,sub_name',
             'status' => 'required',
             'image' => 'required',
             'description' => 'required',
@@ -83,5 +83,57 @@ class SubCategoryController extends Controller
 
     public function edit($id){
     	// dd($id);
+    	$subcat = DB::table('subcategories')->join('categories','subcategories.category_id','categories.id')
+    	->select('subcategories.*','categories.name')->where('subcategories.id',$id)->first();
+// dd($subcat);
+    	$category = Category::all();
+    	return view('admin.subcategory.editSubCategory',compact('subcat','category'));
+    }
+
+    public function update(Request $request, $id){
+    	// dd($id);
+
+    	   $this->validate($request,[
+              'category_name' => 'required',
+            'subcategory_name' => 'required|unique:subcategories,sub_name',
+            'status' => 'required',
+            'description' => 'required',
+        ]);
+
+    	$subcat = SubCategory::findOrFail($id);
+
+    	$subcat->category_id = $request->category_name;
+       $subcat->sub_name = $request->subcategory_name;
+       $subcat->status = $request->status;
+       $subcat->description = $request->description;
+
+       $random = Carbon::now()->format('his')+rand(1000,9999);
+
+    	  if($image = $request->file('image')){
+            $extention = $request->file('image')->getClientOriginalExtension();
+            $imageName = $random.'.'.$extention;
+            $path = public_path('uploads/subcategory');
+            $image->move($path,$imageName);
+
+
+             if(file_exists('uploads/subcategory/'.$subcat->image) AND !empty($subcat->image)){
+                unlink('uploads/subcategory/'.$subcat->image);
+            }
+            $subcat->image = $imageName;
+        }  
+        else{
+            $subcat->image = $subcat->image;
+        }
+
+
+    	if($subcat->save()){
+
+    		return redirect()->back()->with('success','SubCategory information successfully updated.');
+    	}
+    	else{
+    		return redirect()->back()->with('error','Something Error Found !, Please try again.');
+    	}
+
+
     }
 }

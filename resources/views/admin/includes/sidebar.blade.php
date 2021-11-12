@@ -68,7 +68,7 @@
             <ul class="nav nav-treeview">
             
               <li class="nav-item">
-                <a href="{{route('admin.addSubCategory')}}" class="nav-link {{request()->is('admin/subcategory/add-subcategory','admin/category/edit-category/*') ? 'active' : '' }}">
+                <a href="{{route('admin.addSubCategory')}}" class="nav-link {{request()->is('admin/subcategory/add-subcategory','admin/subcategory/edit-subcategory/*') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add SubCategory</p>
                 </a>
