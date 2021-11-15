@@ -23,6 +23,8 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+
+               <!-- dashboard -->
           <li class="nav-item has-treeview menu-open">
             <a href="{{url('admin/dashboard')}}" class="nav-link {{request()->is('admin/dashboard') ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -31,6 +33,8 @@
               </p>
             </a>
           </li>
+
+          <!-- category -->
 
           <li class="nav-item has-treeview {{request()->is('admin/category/*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link">
@@ -57,9 +61,11 @@
             </ul>
           </li>
 
+            <!-- subcategory -->
+
            <li class="nav-item has-treeview {{request()->is('admin/subcategory/*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-list-alt"></i>
+              <i class="nav-icon fas fa-list"></i>
               <p>
                 SubCategory
                 <i class="right fas fa-angle-left"></i>
@@ -81,6 +87,34 @@
               </li>
             </ul>
           </li>
+
+            <!-- brands -->
+
+          <li class="nav-item has-treeview {{request()->is('admin/brand/*') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-list-alt"></i>
+              <p>
+                Brand
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+            
+              <li class="nav-item">
+                <a href="{{route('admin.addBrand')}}" class="nav-link {{request()->is('admin/brand/add-brand','admin/brand/edit-brand/*') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Brand</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.viewSubCategory')}}" class="nav-link {{request()->is('admin/subcategory/view-subcategory') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>View Brand</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

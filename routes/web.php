@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\BrandController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,6 +37,10 @@ Route::get('admin/subcategory/delete-subcategory/{id}',[SubCategoryController::c
 Route::get('admin/subcategory/edit-subcategory/{id}',[SubCategoryController::class,'edit'])->name('admin.editSubCategory');
 Route::post('admin/subcategory/update-subcategory/{id}',[SubCategoryController::class,'update'])->name('admin.updateSubCategory');
 
+// ========================ROUTE FOR BRANDS==================================================
+
+Route::get('admin/brand/add-brand',[BrandController::class,'create'])->name('admin.addBrand');
+Route::post('admin/brand/store-brand',[BrandController::class,'store'])->name('admin.storeBrand');
 
 
 
